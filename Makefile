@@ -45,6 +45,8 @@ endif
 endif
 
 export CFLAGS= -DDMLC_LOG_CUSTOMIZE=1 -std=c++14 -Wall -Wno-unknown-pragmas -Iinclude $(ADD_CFLAGS)
+# Kevin added: debug symbols for better vtune profiling
+CFLAGS += -g 
 CFLAGS += -I$(DMLC_CORE)/include -I$(RABIT)/include -I$(GTEST_PATH)/include
 
 ifeq ($(TEST_COVER), 1)
