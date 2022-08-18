@@ -221,16 +221,31 @@ target_include_directories(xgboost
   INTERFACE
   $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
+
+#target_include_directories(xgboost
+#  INTERFACE
+#  $<INSTALL_INTERFACE:/opt/intel/oneapi/vtune/2022.3.0/include>)
+add_library(vtune STATIC IMPORTED) # or STATIC instead of SHARED
+set_target_properties(vtune PROPERTIES
+  IMPORTED_LOCATION "/opt/intel/oneapi/vtune/2022.3.0/lib64/libittnotify.a"
+  INTERFACE_INCLUDE_DIRECTORIES "/opt/intel/oneapi/vtune/2022.3.0/include"
+)
+#add_library(vtune SHARED IMPORTED)
+#set_property(TARGET vtune PROPERTY IMPORTED_LOCATION "/lib/x86_64-linux-gnu/libdl.so.2")
+
+
+
 #-- End shared library
 
 #-- CLI for xgboost
 add_executable(runxgboost ${xgboost_SOURCE_DIR}/src/cli_main.cc)
-target_link_libraries(runxgboost PRIVATE objxgboost)
+target_link_libraries(runxgboost PRIVATE objxgboost vtune "-L/lib/x86_64-linux-gnu" dl)
 target_include_directories(runxgboost
   PRIVATE
   ${xgboost_SOURCE_DIR}/include
   ${xgboost_SOURCE_DIR}/dmlc-core/include
   ${xgboost_SOURCE_DIR}/rabit/include
+  #/opt/intel/oneapi/vtune/2022.3.0/include
 )
 set_target_properties(runxgboost PROPERTIES OUTPUT_NAME xgboost)
 #-- End CLI for xgboost
