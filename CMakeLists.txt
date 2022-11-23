@@ -16,7 +16,6 @@ message(STATUS "CMake version ${CMAKE_VERSION}")
 if (CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
   message(FATAL_ERROR "GCC version must be at least 5.0!")
 endif()
-
 include(${xgboost_SOURCE_DIR}/cmake/FindPrefetchIntrinsics.cmake)
 find_prefetch_intrinsics()
 include(${xgboost_SOURCE_DIR}/cmake/Version.cmake)
@@ -224,11 +223,11 @@ target_include_directories(xgboost
 
 #target_include_directories(xgboost
 #  INTERFACE
-#  $<INSTALL_INTERFACE:/opt/intel/oneapi/vtune/2022.3.0/include>)
+#  $<INSTALL_INTERFACE:/opt/intel/oneapi/vtune/latest/include>)
 add_library(vtune STATIC IMPORTED) # or STATIC instead of SHARED
 set_target_properties(vtune PROPERTIES
-  IMPORTED_LOCATION "/opt/intel/oneapi/vtune/2022.3.0/lib64/libittnotify.a"
-  INTERFACE_INCLUDE_DIRECTORIES "/opt/intel/oneapi/vtune/2022.3.0/include"
+  IMPORTED_LOCATION "/opt/intel/oneapi/vtune/latest/lib64/libittnotify.a"
+  INTERFACE_INCLUDE_DIRECTORIES "/opt/intel/oneapi/vtune/latest/include"
 )
 #add_library(vtune SHARED IMPORTED)
 #set_property(TARGET vtune PROPERTY IMPORTED_LOCATION "/lib/x86_64-linux-gnu/libdl.so.2")
@@ -245,7 +244,7 @@ target_include_directories(runxgboost
   ${xgboost_SOURCE_DIR}/include
   ${xgboost_SOURCE_DIR}/dmlc-core/include
   ${xgboost_SOURCE_DIR}/rabit/include
-  #/opt/intel/oneapi/vtune/2022.3.0/include
+  #/opt/intel/oneapi/vtune/latest/include
 )
 set_target_properties(runxgboost PROPERTIES OUTPUT_NAME xgboost)
 #-- End CLI for xgboost
