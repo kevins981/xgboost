@@ -233,7 +233,9 @@ class CLI {
     LOG(INFO) << "Loading data: " << dmlc::GetTime() - tstart_data_load
               << " sec";
 
-    __itt_resume();
+    //__itt_resume();
+    //printf("[INFO: VTUNE] Vtune analysis resumed.\n");
+
     // start training.
     const double start = dmlc::GetTime();
     for (int i = version / 2; i < param_.num_round; ++i) {
@@ -523,8 +525,6 @@ class CLI {
 }  // namespace xgboost
 
 int main(int argc, char *argv[]) {
-  __itt_pause();
-  printf("[INFO: VTUNE] Vtune analysis enabled. Data loading phase is not profiled.\n");
   try {
     xgboost::CLI cli(argc, argv);
     return cli.Run();
