@@ -52,8 +52,7 @@ run_app () {
   echo "$NUMACTL_OUT" >> $OUTFILE_PATH
 
   pushd ${DATA_DIR}
-  echo "${COMMAND_COMMON} ${XGBOOST_EXE} ${DATA_DIR}/criteo.conf &>> $OUTFILE_PATH &"
-  #${COMMAND_COMMON} ${XGBOOST_EXE} ${DATA_DIR}/criteo.conf &>> $OUTFILE_PATH &
+  ${COMMAND_COMMON} ${XGBOOST_EXE} ${DATA_DIR}/criteo.conf &>> $OUTFILE_PATH &
   TIME_PID=$!
   EXE_PID=$(pgrep -P $TIME_PID)
   popd
