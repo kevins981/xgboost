@@ -28,7 +28,7 @@
 *sdf
 Release
 *exe*
-*exp
+#*exp
 ipch
 *.filters
 *.user
